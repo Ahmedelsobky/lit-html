@@ -15,7 +15,7 @@
 /// <reference path="../../node_modules/@types/mocha/index.d.ts" />
 /// <reference path="../../node_modules/@types/chai/index.d.ts" />
 
-import {AttributePart, defaultPartCallback, html, NodePart, Part, render, svg, TemplateInstance, TemplatePart, TemplateResult, defaultTemplateFactory} from '../lit-html.js';
+import {AttributePart, defaultPartCallback, defaultTemplateFactory, html, NodePart, Part, render, svg, TemplateInstance, TemplatePart, TemplateResult} from '../lit-html.js';
 
 const assert = chai.assert;
 
@@ -227,7 +227,8 @@ suite('lit-html', () => {
       });
 
       const testSkipForTemplatePolyfill =
-          ((HTMLTemplateElement as any).decorate != null) ?
+          ((HTMLTemplateElement as any).decorate != null ||
+            (window as any).ShadyDOM && (window as any).ShadyDOM.inUse) ?
           test.skip :
           test;
 

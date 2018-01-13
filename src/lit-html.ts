@@ -15,7 +15,7 @@
 // The first argument to JS template tags retain identity across multiple
 // calls to a tag for the same literal, so we can cache work done per literal
 // in a Map.
-const templateCaches = new Map<string, Map<TemplateStringsArray, Template>>();
+export const templateCaches = new Map<string, Map<TemplateStringsArray, Template>>();
 
 /**
  * Interprets a template literal as an HTML template that can efficiently
@@ -103,7 +103,7 @@ export function defaultTemplateFactory(result: TemplateResult) {
   }
   let template = templateCache.get(result.strings);
   if (template === undefined) {
-    template = new Template(result);
+    template = new Template(result, result.getTemplateElement());
     templateCache.set(result.strings, template);
   }
   return template;
@@ -218,8 +218,8 @@ export class Template {
   parts: TemplatePart[] = [];
   element: HTMLTemplateElement;
 
-  constructor(result: TemplateResult) {
-    this.element = result.getTemplateElement();
+  constructor(result: TemplateResult, element: HTMLTemplateElement) {
+    this.element = element;
     const content = this.element.content;
     // Edge needs all 4 parameters present; IE11 needs 3rd parameter to be null
     const walker = document.createTreeWalker(
