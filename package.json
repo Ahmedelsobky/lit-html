@@ -5,7 +5,7 @@
   "license": "BSD-3-Clause",
   "repository": "Polymer/lit-html",
   "main": "lit-html.umd.js",
-  "module": "lit-html.js",
+  "module": "lit-html.esm.js",
   "directories": {
     "test": "test"
   },
@@ -18,7 +18,9 @@
     "!/src/test/"
   ],
   "scripts": {
-    "build": "tsc && babel -o lit-html.umd.js lit-html.js",
+    "build-umd": "BABEL_ENV=umd babel lit-html.js -o lit-html.umd.js",
+    "build-esm": "BABEL_ENV=esm babel lit-html.js -o lit-html.esm.js",
+    "build": "tsc && npm run build-umd && npm run build-esm",
     "gen-docs": "typedoc --readme none --mode modules --excludeNotExported --excludePrivate --exclude **/*_test.ts --out ./docs/api ./src",
     "test": "npm run build && wct --npm && npm run lint",
     "quicktest": "wct -l chrome -p --npm",

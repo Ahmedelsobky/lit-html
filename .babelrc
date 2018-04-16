@@ -1,5 +1,14 @@
 {
-  "presets": [
-    ["es2015", {"modules": "umd"}]
-  ]
+  "env": {
+    "esm": {
+      "presets": [
+        ["es2015", {"modules": false}],
+      ]
+    },
+    "umd": {
+      "presets": [
+        ["es2015", {"modules": "umd"}]
+      ]
+    }
+  }
 }
