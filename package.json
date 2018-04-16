@@ -10,6 +10,8 @@
     "test": "test"
   },
   "files": [
+   "lit-html.umd.js",
+   "lit-html.esm.js",
     "/lit-html.js",
     "/lit-html.js.map",
     "/lit-html.d.ts",
